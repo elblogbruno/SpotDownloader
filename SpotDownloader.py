@@ -16,9 +16,9 @@ import pyfiglet
 # Put your own values in here #
 ###############################
 
-client_id = "xxxxxxxxxxxxxxxxxxxxxxx"
-client_secret = "xxxxxxxxxxxxxxxxxxx"
-redirect_uri ="xxxxxxxxxxxxxxxxxxxx"
+client_id = "64698e571df3463185c2e1a4433fe92b"
+client_secret = "4d19dff254be41b98fe89802dcdb8a0e"
+redirect_uri ="http://192.168.1.55:8888/callback"
 
 #############################
 # DO NOT MODIFY THIS VALUES #
@@ -74,7 +74,7 @@ def convertMillis(millis):
 
 def my_hook(d):
     if d['status'] == 'finished':
-        print('Done downloading song in mp4, converting to {}'.format(song_format))
+        print('Done downloading song in mp4, converting to {}.'.format(song_format))
 
 def write_tracks(tracks,numOfSongs):
         i = 1
@@ -137,7 +137,11 @@ def write_tracks(tracks,numOfSongs):
                     }
 
                     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                        ydl.download(["ytsearch:'{0}'".format(search_word)])
+                        print(save_location+fixed_name+"."+song_format)
+                        if os.path.exists(save_location+fixed_name+"."+ song_format):
+                            print("Song already exists. Not downloading again.")
+                        else:
+                            ydl.download(["ytsearch:'{0}'".format(search_word)])
                         i = i + 1
                 except KeyError:
                     print(u'Skipping track {0} by {1} (local only?)'.format(

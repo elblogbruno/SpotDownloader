@@ -3,7 +3,7 @@ This a sample and easy to use app in python that downloads all you music in .MP3
 Simply pass your username , playlist url , and get all your songs in high quality .MP3!
 
 ## How to install
-To install the program, fire up your linux or windows distributed machine and run this command.
+To install the program, fire up your linux distributed machine and run this command.
 
 ```
 wget https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/setup.sh && sudo sh setup.sh

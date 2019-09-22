@@ -39,7 +39,7 @@ echo "Installing necessary dependencies... (This could take a while)"
 echo ""
 echo "============================================================"
 apt-get update
-apt-get install -y  python-pip git 
+apt-get install -y  python-pip git ffmpeg
 echo "============================================================"
 if [ "$?" = "1" ]
 then

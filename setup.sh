@@ -63,12 +63,13 @@ echo ""
 echo "============================================================"
 
 su - $USER -c "git clone https://github.com/elblogbruno/SpotDownloader.git"
-cd SpotDownloader/
+
 rm setup.sh
+cd SpotDownloader/
 
 echo "============================================================"
 echo "Setup was successful."
-echo "You can run 'SpotDownloader -h' to see how to start downloading playlists!"
+echo "You can run 'python SpotDownloader.py -h' to see how to start downloading playlists!"
 echo "============================================================"
 
 sleep 2

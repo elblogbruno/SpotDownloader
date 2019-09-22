@@ -17,6 +17,8 @@ The installation script will:
 Change values inside SpotDownloader.py with your spotify account credentials. You can get your credentials from here:
 https://developer.spotify.com/my-applications/#!/applications
 
+![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/CredentialImage.png)
+
 ## How to use it.
 Usage. Python SpotDownloader.py [spotify-username] [playlist-url] [folder-to-store-songs]
 

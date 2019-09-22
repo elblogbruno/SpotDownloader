@@ -16,9 +16,9 @@ import pyfiglet
 # Put your own values in here #
 ###############################
 
-client_id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-client_secret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-redirect_uri ="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+client_id = "64698e571df3463185c2e1a4433fe92b"
+client_secret = "4d19dff254be41b98fe89802dcdb8a0e"
+redirect_uri ="http://192.168.1.55:8888/callback"
 
 #############################
 # DO NOT MODIFY THIS VALUES #
@@ -33,7 +33,7 @@ parser.add_argument('-v', '--verbose', action='store_false', help='Display more 
 parser.add_argument('-u', '--username', help='Spotify Username.')
 parser.add_argument('-s', '--save_location', help='Place where to save songs.')
 parser.add_argument('-p', '--url', help='Spotify playlist url to get the songs from.')
-
+parser.add_argument('-f', '--format', help='Format of the downloaded song. You can choose from aac, m4a, mp3, mp4, ogg, wav, webm. Default is .mp3', default='mp3')
 args = parser.parse_args()
 
 if not args.username:
@@ -45,7 +45,10 @@ if not args.save_location:
     exit("Please write your save location folder with the -s or --save_location argument.")
 else:
     save_location = args.save_location
-
+if not args.format:
+    exit("Please write the format you want the song to have with the -f or --format argument. You can choose from aac, m4a, mp3, mp4, ogg, wav, webm. Default is .mp3")
+else:
+    song_format = args.format
 if not args.username:
     exit("Please write your spotify playlist url with the -p or --url argument.")
 else:
@@ -71,7 +74,7 @@ def convertMillis(millis):
 
 def my_hook(d):
     if d['status'] == 'finished':
-        print('Done downloading song in mp4, converting to .mp3')
+        print('Done downloading song in mp4, converting to {}'.format(song_format))
 
 def write_tracks(tracks,numOfSongs):
         i = 1
@@ -124,7 +127,7 @@ def write_tracks(tracks,numOfSongs):
                         'format': 'bestaudio/best',
                         'postprocessors': [{
                             'key': 'FFmpegExtractAudio',
-                            'preferredcodec': 'mp3',
+                            'preferredcodec': song_format,
                             'preferredquality': '192',
                         }],
                         'no-playlist': False, 

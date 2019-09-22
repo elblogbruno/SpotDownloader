@@ -20,18 +20,9 @@ https://developer.spotify.com/my-applications/#!/applications
 ![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/CredentialImage.png)
 
 ## How to use it.
-Usage. Run python SpotDownloader.py -h to get information on how to use it.
+Usage. Run python SpotDownloader.py -h to get more help information on how to use it.
 
 usage: SpotDownloader.py [-h] [-v] [-u USERNAME] [-s SAVE_LOCATION] [-p URL]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -v, --verbose         Display more information on downloader.
-  -u USERNAME, --username USERNAME
-                        Spotify Username.
-  -s SAVE_LOCATION, --save_location SAVE_LOCATION
-                        Place where to save songs.
-  -p URL, --url URL     Spotify playlist url to get the songs from.
 
 ## Credits
 If you like this piece of software, I invite you to gently reach out to my personal website: elblogdebruno.com.

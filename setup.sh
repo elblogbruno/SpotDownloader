@@ -38,8 +38,9 @@ echo ""
 echo "Installing necessary dependencies... (This could take a while)"
 echo ""
 echo "============================================================"
-
-
+apt-get update
+apt-get install -y  python-pip git 
+echo "============================================================"
 if [ "$?" = "1" ]
 then
   echo "An unexpected error occured during apt-get!"
@@ -62,7 +63,8 @@ echo ""
 echo "============================================================"
 
 su - $USER -c "git clone https://github.com/elblogbruno/SpotDownloader.git"
-#rm setup.sh
+cd SpotDownloader/
+rm setup.sh
 
 echo "============================================================"
 echo "Setup was successful."

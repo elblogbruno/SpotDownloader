@@ -16,9 +16,9 @@ import pyfiglet
 # Put your own values in here #
 ###############################
 
-client_id = "64698e571df3463185c2e1a4433fe92b"
-client_secret = "4d19dff254be41b98fe89802dcdb8a0e"
-redirect_uri ="http://192.168.1.55:8888/callback"
+client_id = "xxxxxxxxxxxxxxxxxxxxxxx"
+client_secret = "xxxxxxxxxxxxxxxxxxx"
+redirect_uri ="xxxxxxxxxxxxxxxxxxxx"
 
 #############################
 # DO NOT MODIFY THIS VALUES #

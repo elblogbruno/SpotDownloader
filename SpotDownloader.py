@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # encoding=utf8
 from __future__ import unicode_literals
 import os
@@ -9,14 +10,15 @@ import spotipy
 import spotipy.util as util
 import youtube_dl
 import argparse
+import pyfiglet
 
 ###############################
 # Put your own values in here #
 ###############################
 
-client_id = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-client_secret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-redirect_uri ="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+client_id = "64698e571df3463185c2e1a4433fe92b"
+client_secret = "4d19dff254be41b98fe89802dcdb8a0e"
+redirect_uri ="http://192.168.1.55:8888/callback"
 
 #############################
 # DO NOT MODIFY THIS VALUES #
@@ -29,17 +31,30 @@ scope = 'user-library-read'
 parser = argparse.ArgumentParser(add_help=True)
 parser.add_argument('-v', '--verbose', action='store_false', help='Display more information on downloader.')
 parser.add_argument('-u', '--username', help='Spotify Username.')
-parser.add_argument('-s', '--save_location', help='Place where to save songs. Default folder is ~/mp3/', default= '~/mp3/')
+parser.add_argument('-s', '--save_location', help='Place where to save songs.')
 parser.add_argument('-p', '--url', help='Spotify playlist url to get the songs from.')
 
 args = parser.parse_args()
 
-username = args.username
-save_location = args.save_location
+if not args.username:
+    exit("Please write your spotify username with the -u or --username argument.")
+else:
+    username = args.username
 
-playlist_url = args.url
-playlist_split = playlist_url.split("/")
-playlist_id = playlist_split[4]
+if not args.save_location:
+    exit("Please write your save location folder with the -s or --save_location argument.")
+else:
+    save_location = args.save_location
+
+if not args.username:
+    exit("Please write your spotify playlist url with the -p or --url argument.")
+else:
+    playlist_url = args.url
+    playlist_split = playlist_url.split("/")
+    playlist_id = playlist_split[4]
+
+ascii_baner = pyfiglet.figlet_format("SpotDownloader")
+print(ascii_baner)
 
 print("--------------------------------------")
 print("Getting songs from this playlist url: " + playlist_url)
@@ -58,10 +73,9 @@ def my_hook(d):
     if d['status'] == 'finished':
         print('Done downloading song in mp4, converting to .mp3')
 
-def write_tracks(text_file, tracks,numOfSongs):
-    with open(text_file, 'a') as file_out:
+def write_tracks(tracks,numOfSongs):
         i = 1
-        playlist_total_lenght = " "
+        playlist_total_lenght = 0
         while i < numOfSongs:
             for item in tracks['items']:
                 current_track = item
@@ -75,25 +89,26 @@ def write_tracks(text_file, tracks,numOfSongs):
                     track_artist = track['artists'][0]['name']
 
                     search_word = track_name + " " + track_artist                   
-                    file_out.write(track_name + " " + track_url + '\n') #Writing into file.
+                    
                     
                     ####################################
                     #Song lenght 
                     track_lenght = track['duration_ms'] 
+                    playlist_total_lenght = playlist_total_lenght + track_lenght
                     con_sec, con_min, con_hour = convertMillis(int(track_lenght))
                     if con_hour > 0:
                         clear_song_lenght =  "{0}:{1}:{2}".format(con_hour, con_min, con_sec)
                     elif con_hour == 0:
                         clear_song_lenght =  "{0}:{1}".format(con_min, con_sec)
-                    playlist_total_lenght = playlist_total_lenght + clear_song_lenght
+
+                 
                     #####################################
                     print("--------------------------------------")
-                    print("Song {0} out of {1}. Playlist lenght {2}".format(i,numOfSongs,playlist_total_lenght))
+                    print("Song {0} out of {1}. Song lenght {2}".format(i,numOfSongs,clear_song_lenght) + " min")
                     print("--------------------------------------")
                     print("Song Name: " + track_name)
                     print("Song Artist: " + track_artist)
                     print("Song Url: " + track_url)
-                    print("Song Lenght: " + clear_song_lenght + " min")
                     print("Search word: " + search_word)
                     print("--------------------------------------")
 
@@ -130,12 +145,14 @@ def write_tracks(text_file, tracks,numOfSongs):
                 tracks = spotify.next(tracks)
             else:
                 break
-        print("--------------------------------------")
-        print ("I've downloaded {0} songs succesfully. You can check them out here {1} !".format(numOfSongs,save_location))
+
+        sec, mins, hour = convertMillis(int(playlist_total_lenght)) 
+        print("--------------------------------------") 
+        print ("I've downloaded {0} songs succesfully. {1} hours:{2} minutes:{3} seconds of music on your hands! You can check them out here {4}!".format(numOfSongs,hour,mins,sec,save_location))
         print("--------------------------------------")
 
 def write_playlist(username,playlist_id):
-    if os.path.isdir(save_location):
+    if os.path.exists(save_location):
         print("Save Location Folder exists.")
         #system("rm -R {}".format(save_location))
     else:
@@ -144,11 +161,11 @@ def write_playlist(username,playlist_id):
 
     results = spotify.user_playlist(username, playlist_id,
                                     fields='tracks,next,name')
-    text_file = u'{0}.txt'.format(results['name'], ok='-_()[]{}')
-    print(u'Writing {0} tracks to {1}'.format(
-            results['tracks']['total'], text_file))
+    
+    print(u'Getting {0} tracks from {1}'.format(
+            results['tracks']['total'], results['name']))
     tracks = results['tracks']
-    write_tracks(text_file, tracks,results['tracks']['total'])
+    write_tracks(tracks,results['tracks']['total'])
 
 
 token = util.prompt_for_user_token(username,scope,client_id=client_id,client_secret=client_secret,redirect_uri=redirect_uri)

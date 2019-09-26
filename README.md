@@ -17,11 +17,23 @@ The installation script will:
 
 ## Configuration of the downloader. 
 Change values inside SpotDownloader.py with your spotify account credentials. You can get your credentials from here:
-https://developer.spotify.com/my-applications/#!/applications. You should click on create new client id, and fill up the form accordingly. 
-For the redirect URI once you've created your client id, you can go to settings and set up your own. Maybe "https://www.google.com" can be a good one!
-Edit the SpotDownloader.py file inside de SpotDownloader folder and fill up the values.
+https://developer.spotify.com/my-applications/#!/applications. 
 
+## Step 1
+You should click on create new client id, and fill up the form accordingly. 
+![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/createID.png)
+![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/FillUpForm.png)
+
+## Step 2
+For the redirect URI once you've created your client id, you can go to settings and set up your own. Maybe "https://www.google.com" can be a good one!
+![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/RedirectUri.png)
+
+## Step 3
+Edit the SpotDownloader.py file inside de SpotDownloader folder and fill up the values you're given!.
 ![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/CredentialImage.png)
+
+## Step 4
+Have fun!
 
 ## How to use it.
 Usage. Run python SpotDownloader.py -h to get more help information on how to use it.

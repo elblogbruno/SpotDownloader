@@ -8,19 +8,6 @@ then
 fi
 
 echo "This script will install SpotDownloader"
-
-read -p "Which user do you want to install SpotDownloader as? (Leave blank to set to default: pi): " USER
-
-if ! [ -n "$USER" ]; then
-    echo "Setting user to default value 'pi'."
-    USER="pi"
-fi
-
-if ! getent passwd $USER > /dev/null 2>&1; then
-    echo "User $USER does not exist. Exiting."
-    exit
-fi
-
 echo "SpotDownloader will install necessary dependencies for program to work"
 echo "Do you wish to continue? (y/n)"
 
@@ -62,7 +49,7 @@ echo "Cloning project from GitHub.."
 echo ""
 echo "============================================================"
 
-su - $USER -c "git clone https://github.com/elblogbruno/SpotDownloader.git"
+sudo git clone https://github.com/elblogbruno/SpotDownloader.git
 
 rm setup.sh
 cd SpotDownloader/

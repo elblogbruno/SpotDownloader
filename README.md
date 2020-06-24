@@ -21,16 +21,16 @@ https://developer.spotify.com/my-applications/#!/applications.
 
 ## Step 1
 You should click on create new client id, and fill up the form accordingly. 
-![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/createID.png)
-![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/FillUpForm.png)
+![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/Screenshots/createID.png)
+![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/Screenshots/FillUpForm.png)
 
 ## Step 2
 For the redirect URI once you've created your client id, you can go to settings and set up your own. Maybe "https://www.google.com" can be a good one!
-![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/RedirectUri.png)
+![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/Screenshots/RedirectUri.png)
 
 ## Step 3
 Edit the SpotDownloader.py file inside de SpotDownloader folder and fill up the values you're given!.
-![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/CredentialImage.png)
+![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/Screenshots/CredentialImage.png)
 
 ## Step 4
 Have fun!
@@ -38,7 +38,7 @@ Have fun!
 ## How to use it.
 Usage. Run python SpotDownloader.py -h to get more help information on how to use it.
 
-usage: SpotDownloader.py [-h] [-v] [-u USERNAME] [-s SAVE_LOCATION] [-p URL] [-f FORMAT]
+usage: SpotDownloader.py [-h] [-v] [-u USERNAME] [-s SAVE_LOCATION] [-f FORMAT]
 
 ## Credits
 If you like this piece of software, I invite you to gently reach out to my personal website: elblogdebruno.com.

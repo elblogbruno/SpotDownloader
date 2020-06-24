@@ -19,6 +19,7 @@ while true; do
       * ) echo "Please answer with Yes or No [y|n].";;
   esac
 done
+
 echo ""
 echo "============================================================"
 echo ""
@@ -34,25 +35,48 @@ then
   exit 0
 fi
 
-pip install youtube-dl  spotipy pyfiglet
+# echo ""
+# echo "============================================================"
+# echo ""
+# echo "Cloning project from GitHub.."
+# echo ""
+# echo "============================================================"
 
-if [ "$?" = "1" ]
-then
-  echo "An unexpected error occured during pip install!"
-  exit 0
-fi
+# git clone https://github.com/elblogbruno/SpotDownloader.git
+
+# cd SpotDownloader/
+
+# pip install -r requirements.txt
+
+# if [ "$?" = "1" ]
+# then
+#   echo "An unexpected error occured during pip install!"
+#   exit 0
+# fi
 
 echo ""
 echo "============================================================"
 echo ""
-echo "Cloning project from GitHub.."
+echo "Configuring Spotify Credentials..."
 echo ""
 echo "============================================================"
+echo "All this data asked here is needed to access your private playlist. To get started,  create an app on https://developers.spotify.com/, and get all the data that will be asked."
+echo "Tell me your spotify client ID: "
+read clientId
+echo $clientId
+export SPOTIPY_CLIENT_ID clientId
+echo "Tell me your spotify client SECRET ( It is very secret booo!): "
+read clientSecret
+echo $clientSecret
+export SPOTIPY_CLIENT_SECRET clientSecret
+echo "Tell me your spotify redirect URI: "
+read redirecUri
+echo $redirecUri
+export SPOTIPY_REDIRECT_URI redirecUri
 
-sudo git clone https://github.com/elblogbruno/SpotDownloader.git
 
-rm setup.sh
-cd SpotDownloader/
+#rm setup.sh
+
 
 echo "============================================================"
 echo "Setup was successful."

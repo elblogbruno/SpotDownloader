@@ -64,22 +64,19 @@ echo "All this data asked here is needed to access your private playlist. To get
 echo "                                "
 echo "Tell me your spotify client ID: "
 read clientId
-export SPOTIPY_CLIENT_ID clientId
+export SPOTIPY_CLIENT_ID=clientId
 echo "Tell me your spotify client SECRET ( It is very secret booo!): "
 read clientSecret
-export SPOTIPY_CLIENT_SECRET clientSecret
+export SPOTIPY_CLIENT_SECRET=clientSecret
 echo "Tell me your spotify redirect URI: "
 read redirectUri
-export SPOTIPY_REDIRECT_URI redirectUri
-
+export SPOTIPY_REDIRECT_URI=redirectUri
 
 #rm setup.sh
 echo "To export them manually (if you need to) run this comands"
-echo "export SPOTIPY_CLIENT_ID clientId"
-echo "export SPOTIPY_CLIENT_SECRET clientSecret"
-echo "export SPOTIPY_REDIRECT_URI redirectUri"
-
-
+echo "export SPOTIPY_CLIENT_ID=clientId"
+echo "export SPOTIPY_CLIENT_SECRET=clientSecret"
+echo "export SPOTIPY_REDIRECT_URI=redirectUri"
 
 echo "============================================================"
 echo "Setup was successful."

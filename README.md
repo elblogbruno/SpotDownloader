@@ -1,8 +1,8 @@
 # SpotDownloader
 ![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/Screenshots/SpotifyLogo.png)
 
-This a sample and easy to use app in python that downloads all you music in .MP3 from a given spotify playlist!
-Simply pass your username , playlist url , and get all your songs in high quality .MP3 or .aac or .webm or...!
+This is a simple and easy to use app made in python that downloads all you music in .MP3 from a given spotify playlist, even your private ones!
+Simply pass your username and get all your songs in high quality .MP3 or .aac or .webm or...!
 
 ## How to install
 To install the program, fire up your linux distributed machine and run this command.

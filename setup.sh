@@ -35,24 +35,24 @@ then
   exit 0
 fi
 
-# echo ""
-# echo "============================================================"
-# echo ""
-# echo "Cloning project from GitHub.."
-# echo ""
-# echo "============================================================"
+ echo ""
+ echo "============================================================"
+ echo ""
+ echo "Cloning project from GitHub.."
+ echo ""
+ echo "============================================================"
 
-# git clone https://github.com/elblogbruno/SpotDownloader.git
+ git clone https://github.com/elblogbruno/SpotDownloader.git
 
-# cd SpotDownloader/
+ cd SpotDownloader/
 
-# pip install -r requirements.txt
+ pip install -r requirements.txt
 
-# if [ "$?" = "1" ]
-# then
-#     echo "An unexpected error occured during pip install!"
-#     exit 0
-# fi
+ if [ "$?" = "1" ]
+ then
+     echo "An unexpected error occured during pip install!"
+     exit 0
+ fi
 
 echo ""
 echo "============================================================"

@@ -31,7 +31,11 @@ class SpotDownloader(object):
             self.client_id = data['SPOTIPY_CLIENT_ID']
             self.client_secret = data['SPOTIPY_CLIENT_SECRET']
             self.redirect_uri = data['SPOTIPY_REDIRECT_URI']
-            self.sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=self.scope, username=self.username,client_id=self.client_id,client_secret=self.client_secret,redirect_uri=self.redirect_uri))
+            sp_oauth = SpotifyOAuth(scope=self.scope, username=self.username,client_id=self.client_id,client_secret=self.client_secret,redirect_uri=self.redirect_uri)
+            self.auth_url = sp_oauth.get_authorize_url()
+            self.last_auth_url = self.auth_url
+            self.sp = spotipy.Spotify(auth_manager=sp_oauth)
+
 
     def show_tracks(results):
         for i, item in enumerate(results['items']):
@@ -51,17 +55,17 @@ class SpotDownloader(object):
                 track_artist = track['artists'][0]['name'].encode('utf-8')
                 track_lenght = track['duration_ms'] 
 
-                search_word = track_name + " " + track_artist 
+                search_word = str(track_name) + " " + str(track_artist) 
                   
                 fixed_name = " "
                 
                 if "/" in search_word:
                     fixed_name = search_word.replace("/","-")
-                    if args.verbose == False:
+                    if self.verbose == False:
                         print("Fixing song name format...")
                 else:
                     fixed_name = search_word
-                    if args.verbose == False:
+                    if self.verbose == False:
                         print("Song name is correct.")
 
                 songPlace = self.save_location+search_word+"."+self.song_format
@@ -119,8 +123,8 @@ class SpotDownloader(object):
                 print("--------------------------------------")
                 print("Song {0} out of {1}. Song lenght {2}".format(i+1,num_of_songs,clear_song_lenght) + " min")
                 print("--------------------------------------")
-                print("Song Name: " + track_name)
-                print("Song Artist: " + track_artist)
+                print("Song Name: " + str(track_name))
+                print("Song Artist: " + str(track_artist))
                 print("Song Url: " + track_url)
                 print("Search word: " + search_word)
                 print("--------------------------------------")
@@ -157,7 +161,7 @@ class SpotDownloader(object):
             sec, mins, hour = self.convertMillis(int(playlist_total_lenght)) 
 
             print("--------------------------------------") 
-            print ("I've downloaded {0} songs succesfully. {1} hours:{2} minutes:{3} seconds of music on your hands! You can check them out here {4}!".format(num_of_songs,hour,mins,sec,self.save_location))
+            print ("I've downloaded {0} songs succesfully. {1} hours:{2} minutes:{3} seconds of music on your hands! You can check them out here {4}!".format(num_of_songs,int(hour),int(mins),int(sec),self.save_location))
             print("--------------------------------------")
         
     def choose_playlist(self):
@@ -176,7 +180,7 @@ class SpotDownloader(object):
             i=i+1
 
         playlist_index = input("Choose a playlist by the number (if you want to download a custom one write 0): ")
-        while playlist_index < 0 or playlist_index > len(playlist_list):
+        while int(playlist_index) < 0 or int(playlist_index) > len(playlist_list):
             print(playlist_index)
             print("Choose a playlist available on the list.")
             playlist_index = input("Choose a playlist by the number (if you want to download a custom one write 0): ")
@@ -184,9 +188,9 @@ class SpotDownloader(object):
         if playlist_index == 0:
             final_id = raw_input("Paste the url of the playlist: ")
         else:
-            final_id = playlist_id[playlist_index-1]
+            final_id = playlist_id[int(playlist_index)-1]
         
-        print ("Gonna download all the songs from this playlist {0}".format(playlist_list[playlist_index-1]))
+        print ("Gonna download all the songs from this playlist {0}".format(playlist_list[int(playlist_index)-1]))
         
         return final_id
 
@@ -213,6 +217,10 @@ class SpotDownloader(object):
         print("Getting playlists from this username: " + self.username)
         print("Songs will be saved here: " + self.save_location)
         print("--------------------------------------")
+        if self.auth_url != self.last_auth_url: 
+            print("Copy and paste this url on the browser if it wasn't actually opened and paste whatever url you get after:")
+            print(self.auth_url)
+            self.last_auth_url = self.auth_url
     
     def download_songs(self):
         self.welcome_message()

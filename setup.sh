@@ -27,7 +27,7 @@ echo "Installing necessary dependencies... (This could take a while)"
 echo ""
 echo "============================================================"
 apt-get update
-apt-get install -y  python-pip git ffmpeg
+apt-get install -y  python-pip git ffmpeg jq
 echo "============================================================"
 if [ "$?" = "1" ]
 then
@@ -35,24 +35,24 @@ then
   exit 0
 fi
 
-echo ""
-echo "============================================================"
-echo ""
-echo "Cloning project from GitHub.."
-echo ""
-echo "============================================================"
+# echo ""
+# echo "============================================================"
+# echo ""
+# echo "Cloning project from GitHub.."
+# echo ""
+# echo "============================================================"
 
-git clone https://github.com/elblogbruno/SpotDownloader.git
+# git clone https://github.com/elblogbruno/SpotDownloader.git
 
-cd SpotDownloader/
+# cd SpotDownloader/
 
-pip install -r requirements.txt
+# pip install -r requirements.txt
 
-if [ "$?" = "1" ]
-then
-    echo "An unexpected error occured during pip install!"
-    exit 0
-fi
+# if [ "$?" = "1" ]
+# then
+#     echo "An unexpected error occured during pip install!"
+#     exit 0
+# fi
 
 echo ""
 echo "============================================================"
@@ -61,25 +61,25 @@ echo "Configuring Spotify Credentials..."
 echo ""
 echo "============================================================"
 echo "All this data asked here is needed to access your private playlist. To get started,  create an app on https://developers.spotify.com/, and get all the data that will be asked."
-echo "                                "
+echo ""
+
+
 echo "Tell me your spotify client ID: "
 read clientId
-export SPOTIPY_CLIENT_ID clientId
+
 echo "Tell me your spotify client SECRET ( It is very secret booo!): "
 read clientSecret
-export SPOTIPY_CLIENT_SECRET clientSecret
+
 echo "Tell me your spotify redirect URI: "
 read redirectUri
-export SPOTIPY_REDIRECT_URI redirectUri
 
+jq -n   --arg id "$clientId"  --arg redirect "$redirectUri" \--arg secret "$clientSecret"  '{ "SPOTIPY_CLIENT_ID":"\($id)","SPOTIPY_CLIENT_SECRET":"\($secret)","SPOTIPY_REDIRECT_URI":"\($redirect)" }' > temp_keys.json 
+
+mv temp_keys.json keys.json
 
 #rm setup.sh
-echo "To export them manually (if you need to) run this comands"
-echo "export SPOTIPY_CLIENT_ID clientId"
-echo "export SPOTIPY_CLIENT_SECRET clientSecret"
-echo "export SPOTIPY_REDIRECT_URI redirectUri"
-
-
+echo "To set them manually (if you need to)"
+echo "Open the keys.json file"
 
 echo "============================================================"
 echo "Setup was successful."

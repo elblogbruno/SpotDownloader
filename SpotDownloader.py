@@ -6,8 +6,9 @@ import argparse
 import pyfiglet
 import os
 from os import system
-
-
+import json
+from os_helper import (dirname, join_paths, try_create_lock_file,
+                           try_delete_lock_file)
 
 #############################
 # DO NOT MODIFY THIS VALUES #
@@ -93,6 +94,9 @@ def convertMillis(millis):
      hours=(millis/(1000*60*60))%24
      return seconds, minutes, hours
 def my_hook(d):
+    if d['status'] == 'downloading':
+        folder_path = dirname(d['filename'])
+        try_create_lock_file(folder_path)
     if d['status'] == 'finished':
         print('Done downloading song in mp4, converting to {}.'.format(song_format))
 
@@ -136,6 +140,8 @@ def write_tracks(results):
                     'preferredcodec': song_format,
                     'preferredquality': '192',
                 }],
+                'writethumbnail': True,
+                'writeinfojson': True,
                 'no-playlist': False, 
                 'quiet': args.verbose,
                 'outtmpl': '{1}{0}.%(ext)s'.format(search_word,save_location),                
@@ -148,7 +154,12 @@ def write_tracks(results):
                 if os.path.exists(songPlace):
                     print("Song already exists on the given path. Not downloading again.")
                 else:
-                    ydl.download(["ytsearch:'{0}'".format(search_word)])
+                    try:
+                        ydl.download(["ytsearch:'{0}'".format(search_word)])
+                    except youtube_dl.utils.DownloadError as e:
+                        print e
+                    finally:
+                        try_delete_lock_file(search_word+save_location)
         except KeyError:
             print(u'Skipping track {0} by {1} (local only?)'.format(
                     track['name'], track['artists']))
@@ -220,7 +231,15 @@ def download_songs():
 
     write_tracks(tracks_list)
 
-
+def create_sp():
+    with open('keys.json') as json_file:
+        data = json.load(json_file)
+        client_id = data['SPOTIPY_CLIENT_ID']
+        client_secret = data['SPOTIPY_CLIENT_SECRET']
+        redirect_uri = data['SPOTIPY_REDIRECT_URI']
+        print(client_id+client_secret+redirect_uri)
+        sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, username=username,client_id=client_id,client_secret=client_secret,redirect_uri=redirect_uri))
+    return sp
 if __name__ == "__main__":
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, username=username))
+    sp = create_sp()
     download_songs()

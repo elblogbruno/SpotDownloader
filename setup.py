@@ -20,6 +20,9 @@ else:
     raise RuntimeError(
         "Unable to find version string in {}".format(VERSIONFILE))
 
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 requirements = []
 with open('requirements.txt') as f:
@@ -29,12 +32,17 @@ setup(
     name='SpotDownloader',
     version=version,
     description='This is a simple and easy to use app made in python that downloads all you music in .MP3 from a given spotify playlist, even your private ones!',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     license="MIT",
     author='Bruno Moya',
     author_email='me@brunomoya.com',
     url='https://github.com/elblogbruno/SpotDownloader',
+    download_url='https://github.com/elblogbruno/SpotDownloader/archive/1.0.1.tar.gz',
     keywords='songs lyrics spotify download youtube',
     packages=find_packages(exclude=['tests']),
+    include_package_data=True,
+    data_files=[('./', ['requirements.txt'])],
     install_requires=requirements,
     entry_points={
         'console_scripts': [

@@ -33,7 +33,7 @@ class SpotDownloader(object):
             self.redirect_uri = data['SPOTIPY_REDIRECT_URI']
             sp_oauth = SpotifyOAuth(scope=self.scope, username=self.username,client_id=self.client_id,client_secret=self.client_secret,redirect_uri=self.redirect_uri)
             self.auth_url = sp_oauth.get_authorize_url()
-            self.last_auth_url = self.auth_url
+            self.last_auth_url = " "
             self.sp = spotipy.Spotify(auth_manager=sp_oauth)
 
 

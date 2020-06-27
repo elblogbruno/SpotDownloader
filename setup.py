@@ -1,7 +1,3 @@
-# LyricsGenius
-# Copyright 2018 John W. Miller
-# See LICENSE for details.
-
 import sys
 import re
 from os import path
@@ -38,11 +34,8 @@ setup(
     author='Bruno Moya',
     author_email='me@brunomoya.com',
     url='https://github.com/elblogbruno/SpotDownloader',
-    download_url='https://github.com/elblogbruno/SpotDownloader/archive/1.0.1.tar.gz',
     keywords='songs lyrics spotify download youtube',
-    packages=find_packages(exclude=['tests']),
-    include_package_data=True,
-    data_files=[('./', ['requirements.txt'])],
+    packages=find_packages(),
     install_requires=requirements,
     entry_points={
         'console_scripts': [

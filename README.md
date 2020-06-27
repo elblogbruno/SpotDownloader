@@ -13,7 +13,7 @@ wget https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/setup.s
 That's it.
 
 The installation script will:
-- Download SpotDownloader and install the necessary dependencies
+- Download SpotDownloader and install the necessary dependencies aswell as configure the Spotify needed keys.
 
 ## Configuration of the downloader. 
 Change values inside SpotDownloader.py with your spotify account credentials. You can get your credentials from here:
@@ -29,19 +29,19 @@ For the redirect URI once you've created your client id, you can go to settings 
 ![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/Screenshots/RedirectUri.png)
 
 ## Step 3
-Edit the SpotDownloader.py file inside de SpotDownloader folder and fill up the values you're given!.
-![alt text](https://raw.githubusercontent.com/elblogbruno/SpotDownloader/master/Screenshots/CredentialImage.png)
+Give all this data when ask on the setup!
 
 ## Step 4
 Have fun!
 
 ## How to use it.
-Usage. Run python SpotDownloader.py -h to get more help information on how to use it.
+Usage. Run SpotDownloader -h to get more help information on how to use it.
 
-usage: SpotDownloader.py [-h] [-v] [-u USERNAME] [-s SAVE_LOCATION] [-f FORMAT]
+usage: SpotDownloader [-h] [-v] [-u USERNAME] [-s SAVE_LOCATION] [-f FORMAT]
 
 ## Credits
 If you like this piece of software, I invite you to gently reach out to my personal website: elblogdebruno.com.
-##TODO
+
+## TODO
 Android or web app.
 Better login or setup process.

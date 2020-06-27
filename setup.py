@@ -20,9 +20,6 @@ else:
     raise RuntimeError(
         "Unable to find version string in {}".format(VERSIONFILE))
 
-this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
 
 requirements = []
 with open('requirements.txt') as f:
@@ -32,8 +29,6 @@ setup(
     name='SpotDownloader',
     version=version,
     description='This is a simple and easy to use app made in python that downloads all you music in .MP3 from a given spotify playlist, even your private ones!',
-    long_description=long_description,
-    long_description_content_type='text/markdown',
     license="MIT",
     author='Bruno Moya',
     author_email='me@brunomoya.com',
@@ -48,6 +43,7 @@ setup(
     classifiers=[
         'Topic :: Software Development :: Libraries',
         'Operating System :: OS Independent',
+        'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
     ]

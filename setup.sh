@@ -35,24 +35,7 @@ then
   exit 0
 fi
 
- echo ""
- echo "============================================================"
- echo ""
- echo "Cloning project from GitHub.."
- echo ""
- echo "============================================================"
 
- git clone https://github.com/elblogbruno/SpotDownloader.git
-
- cd SpotDownloader/
-
- pip install -r requirements.txt
-
- if [ "$?" = "1" ]
- then
-     echo "An unexpected error occured during pip install!"
-     exit 0
- fi
 
 echo ""
 echo "============================================================"
@@ -77,9 +60,24 @@ jq -n   --arg id "$clientId"  --arg redirect "$redirectUri" \--arg secret "$clie
 
 mv temp_keys.json keys.json
 
-#rm setup.sh
 echo "To set them manually (if you need to)"
 echo "Open the keys.json file"
+
+echo ""
+echo "============================================================"
+echo ""
+echo "Cloning project from GitHub.."
+echo ""
+echo "============================================================"
+
+pip install git+clone https://github.com/elblogbruno/SpotDownloader.git
+
+
+if [ "$?" = "1" ]
+then
+    echo "An unexpected error occured during pip install!"
+    exit 0
+fi
 
 echo "============================================================"
 echo "Setup was successful."

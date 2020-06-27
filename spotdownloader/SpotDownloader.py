@@ -2,12 +2,11 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import youtube_dl
-import argparse
 import pyfiglet
 import os
 
 import json
-from os_helper import (dirname, try_create_lock_file,
+from spotdownloader.os_helper import (dirname, try_create_lock_file,
                            try_delete_lock_file,mkdir,isdir)
 
 #############################
@@ -17,32 +16,10 @@ current_track = " "
 search_word = " "
 #############################
 
-def get_arguments():
-    parser = argparse.ArgumentParser(add_help=True)
-    parser.add_argument('-v', '--verbose', action='store_false', help='Display more information on downloader.',default = True)
-    parser.add_argument('-o', '--overwrite', action='store_true', help='If given path has got songs, deletes the folder with already downloaded songs.',default = False)
-    parser.add_argument('-u', '--username', help='Spotify Username.')
-    parser.add_argument('-s', '--save_location', help='Place where to save songs.')
-    parser.add_argument('-f', '--format', help='Format of the downloaded song. You can choose from aac, m4a, mp3, mp4, ogg, wav, webm. Default is .mp3', default='mp3')
-    args = parser.parse_args()
 
-    if not args.username:
-        exit("Please write your spotify username with the -u or --username argument.")
-    else:
-        username = args.username
-
-    if not args.save_location:
-        exit("Please write your save location folder with the -s or --save_location argument.")
-    else:
-        save_location = args.save_location
-    if not args.format:
-        exit("Please write the format you want the song to have with the -f or --format argument. You can choose from aac, m4a, mp3, mp4, ogg, wav, webm. Default is .mp3")
-    else:
-        song_format = args.format
-    return args
 
 class SpotDownloader(object):
-    def __init__(self, args):
+    def __init__(self, args,key_path):
 
         """ Spotify API Constructor
         :param client_id: client id provided by Spotify
@@ -57,7 +34,7 @@ class SpotDownloader(object):
         self.username = args.username
         self.scope = "playlist-read-private" 
 
-        with open('keys.json') as json_file:
+        with open(key_path) as json_file:
             data = json.load(json_file)
             self.client_id = data['SPOTIPY_CLIENT_ID']
             self.client_secret = data['SPOTIPY_CLIENT_SECRET']
@@ -178,7 +155,7 @@ class SpotDownloader(object):
                         try:
                             ydl.download(["ytsearch:'{0}'".format(search_word)])
                         except youtube_dl.utils.DownloadError as e:
-                            print e
+                            print (e)
                         finally:
                             try_delete_lock_file(search_word+self.save_location)
             except KeyError:
@@ -259,10 +236,3 @@ class SpotDownloader(object):
         tracks_list = self.make_list_with_fixed_names(tracks)
 
         self.write_tracks(tracks_list)
-
-
-
-if __name__ == "__main__":
-    args = get_arguments()
-    sp = SpotDownloader(args)
-    sp.download_songs()

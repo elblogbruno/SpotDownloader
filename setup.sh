@@ -70,7 +70,7 @@ echo "Cloning project from GitHub.."
 echo ""
 echo "============================================================"
 
-pip install git+clone https://github.com/elblogbruno/SpotDownloader.git
+pip install git+https://github.com/elblogbruno/SpotDownloader.git
 
 
 if [ "$?" = "1" ]

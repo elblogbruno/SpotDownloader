@@ -9,14 +9,6 @@ import json
 from spotdownloader.os_helper import (dirname, try_create_lock_file,
                            try_delete_lock_file,mkdir,isdir)
 
-#############################
-# DO NOT MODIFY THIS VALUES #
-#############################
-current_track = " "
-search_word = " "
-#############################
-
-
 
 class SpotDownloader(object):
     def __init__(self, args,key_path):

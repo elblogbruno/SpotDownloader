@@ -27,7 +27,7 @@ echo "Installing necessary dependencies... (This could take a while)"
 echo ""
 echo "============================================================"
 apt-get update
-apt-get install -y  python-pip git ffmpeg jq
+apt-get install -y  python-pip git ffmpeg jq python3-pip python3.6
 echo "============================================================"
 if [ "$?" = "1" ]
 then
@@ -70,8 +70,13 @@ echo "Cloning project from GitHub.."
 echo ""
 echo "============================================================"
 
-pip3 install git+https://github.com/elblogbruno/SpotDownloader.git
+if ! [ -x "$(command -v pip3)" ]; then
+  echo 'Error: PIP software for python3 (pip3) is not installed. I will install it for you!' >&2
+  curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
+  python3 get-pip.py --user 
+fi
 
+pip3 install SpotDownloader
 
 if [ "$?" = "1" ]
 then

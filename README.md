@@ -15,8 +15,8 @@ That's it.
 The installation script will:
 - Download SpotDownloader and install the necessary dependencies aswell as configure the Spotify needed keys.
 
-## Configuration of the downloader. 
-Change values inside SpotDownloader.py with your spotify account credentials. You can get your credentials from here:
+## How to get your account specific credentials 
+You can get your credentials from here:
 https://developer.spotify.com/my-applications/#!/applications. 
 
 ## Step 1
@@ -40,7 +40,7 @@ Usage. Run SpotDownloader -h to get more help information on how to use it.
 usage: SpotDownloader [-h] [-v] [-u USERNAME] [-s SAVE_LOCATION] [-f FORMAT]
 
 ## Credits
-If you like this piece of software, I invite you to gently reach out to my personal website: elblogdebruno.com.
+If you like this piece of software, I invite you to gently reach out to my personal website: brunomoya.com.
 
 ## TODO
 Android or web app.
